@@ -1,9 +1,26 @@
 from telethon import TelegramClient, events
 from telethon.sessions import StringSession
 from telethon.tl.types import PeerChannel
+from flask import Flask
 import os
 import requests
 import asyncio
+import threading
+
+# Flask app for keeping the bot alive
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Server is running..."
+
+def run_flask():
+    app.run(host='0.0.0.0', port=8000)
+
+# Start Flask server in a separate thread
+def keep_alive():
+    t = threading.Thread(target=run_flask, daemon=True)
+    t.start()
 
 # Telegram API credentials (from my.telegram.org)
 API_ID = int(os.environ['API_ID']) # Telegram API ID
@@ -72,4 +89,5 @@ async def main():
 
 # Run the script
 if __name__ == "__main__":
+    keep_alive()  # Start Flask serverf
     asyncio.run(main())
