@@ -47,6 +47,7 @@ async def main():
     
     # send a startup message to the target channel
     await client.send_message(TARGET_CHANNEL, "🤖 Bot started and listening for new messages...")
+    print("Startup message sent to target channel and listening new messages!")
     
     # Listen to source channel messages
     @client.on(events.NewMessage(from_users = SOURCE_CHANNEL))
