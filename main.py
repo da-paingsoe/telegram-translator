@@ -49,10 +49,13 @@ async def main():
     @client.on(events.NewMessage(from_users = SOURCE_CHANNEL))
     async def handler(event):
         message_text = event.message.message
+        print("New message!")
         if message_text:
             try:
                 translated_text = deepseek_translate(message_text) # Translate message
+                print("Message translated!")
                 await client.send_message(TARGET_CHANNEL, translated_text)  # Send to target channel
+                print("Message sent to target channel!")
             except Exception as e:
                 print("Error:", e)
         
