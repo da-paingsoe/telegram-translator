@@ -1,5 +1,6 @@
 from telethon import TelegramClient, events
 from telethon.sessions import StringSession
+from telethon.tl.types import PeerChannel
 import os
 import requests
 import asyncio
@@ -46,8 +47,8 @@ async def main():
     print("User logged in!")
     
     # Numeric IDs ကို entity အဖြစ် resolve လုပ်
-    source_entity = await client.get_entity(SOURCE_CHANNEL)
-    target_entity = await client.get_entity(TARGET_CHANNEL)
+    source_entity = PeerChannel(SOURCE_CHANNEL)
+    target_entity = PeerChannel(TARGET_CHANNEL)
     
     # send a startup message to the target channel
     await client.send_message(target_entity, "🤖 Bot started and listening for new messages...")
