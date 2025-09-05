@@ -45,12 +45,16 @@ async def main():
     await client.start()
     print("User logged in!")
     
+    # Numeric IDs ကို entity အဖြစ် resolve လုပ်
+    source_entity = await client.get_entity(SOURCE_CHANNEL)
+    target_entity = await client.get_entity(TARGET_CHANNEL)
+    
     # send a startup message to the target channel
-    await client.send_message(TARGET_CHANNEL, "🤖 Bot started and listening for new messages...")
+    await client.send_message(target_entity, "🤖 Bot started and listening for new messages...")
     print("Startup message sent to target channel and listening new messages!")
     
     # Listen to source channel messages
-    @client.on(events.NewMessage(from_users = SOURCE_CHANNEL))
+    @client.on(events.NewMessage(from_users = source_entity))
     async def handler(event):
         message_text = event.message.message
         print("New message!")
