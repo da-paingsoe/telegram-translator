@@ -1,4 +1,5 @@
 from telethon import TelegramClient, events
+from telethon.sessions import StringSession
 import os
 import requests
 import asyncio
@@ -6,7 +7,7 @@ import asyncio
 # Telegram API credentials (from my.telegram.org)
 API_ID = int(os.environ['API_ID']) # Telegram API ID
 API_HASH = os.environ['API_HASH'] # Telegram API Hash
-PHONE = os.environ['PHONE'] # Telegram Phone Number
+STRING_SESSION = os.environ['STRING_SESSION'] # String Session
 
 # OpenRouter API credentials
 API_KEY = os.environ['API_KEY'] # Translation API Key
@@ -38,10 +39,10 @@ def deepseek_translate(message, src='en', dest='my'):
     
 
 # Connect to Telegram
-client = TelegramClient('TranslatorBot', API_ID, API_HASH)
+client = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 async def main():
     # Login to Telegram
-    await client.start(PHONE)
+    await client.start()
     print("User logged in!")
     
     # Listen to source channel messages
