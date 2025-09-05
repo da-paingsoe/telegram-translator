@@ -46,7 +46,7 @@ async def main():
     print("User logged in!")
     
     # Listen to source channel messages
-    @client.on(events.NewMessages(from_users = SOURCE_CHANNEL))
+    @client.on(events.NewMessage(from_users = SOURCE_CHANNEL))
     async def handler(event):
         message_text = event.message.message
         if message_text:
